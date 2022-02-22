@@ -10,10 +10,16 @@ def get_time(date):
   return date.strftime("%X")
 
 
-
 def done_task(msg):
   task = str(get_task_number(msg.content))
   author = str(msg.author.name+" #" + msg.author.discriminator)
   created_at =  str(get_year(msg.created_at)+" " + get_time(msg.created_at))
-  track = str(msg.channel.category.name)
+  track = str(msg.channel.category.name).to_lower()
+  if (track == "science tasks"):
+    if (str(msg.channel) == 'science-tasks-done'):
+      track = 'science-tasks'
+    elif (str(msg.channel) == 'competitor-done'):
+      track = 'competitor-tasks'
+    else:
+      return
   insertRow(track, author, task, created_at)

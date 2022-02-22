@@ -14,9 +14,9 @@ async def on_ready():
 
 @client.event
 async def on_message(msg):
-  if (str(msg.channel) == 'tasks-done'):
+  if (str(msg.channel).endswith('-done')):
     if (msg.content.lower().startswith("done")):
       done_task(msg)
       await msg.add_reaction('👏')
-
+      
 client.run(TOKEN)
