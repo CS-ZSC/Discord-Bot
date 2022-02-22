@@ -1,7 +1,7 @@
 import gspread
 
 gc = gspread.service_account(filename='./creds.json')
-sh = gc.open("Testing Bot")
+sh = gc.open("CS 22")
 
 
 def get_cell_of_sheet(sheet, discord_name, task_number):
