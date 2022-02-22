@@ -6,7 +6,7 @@ sh = gc.open("CS 22")
 
 def get_cell_of_sheet(sheet, discord_name, task_number):
   cell = sheet.find(discord_name)
-  return (cell.row, cell.col+2+int(task_number))
+  return (cell.row, cell.col+int(task_number))
 
 def insertRow(track, author, task_number, created_at):
   sheet = sh.worksheet(track.lower())
