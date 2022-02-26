@@ -70,3 +70,5 @@ def get_task_start_end_date_str(track, task_number):
       print("Task Deadline doesn't exist in the spreadsheet")
       return '', ''
     return start_date_str, end_date_str
+  #except:
+  #  return '', ''

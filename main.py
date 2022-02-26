@@ -32,4 +32,3 @@ async def announce(msg):
 
 utils.load_cogs(client)
 client.run(TOKEN)
-
