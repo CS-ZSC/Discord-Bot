@@ -1,7 +1,6 @@
 creds.json
 .config/
 .replit
-modules/
 poetry.lock
 pyproject.toml
 replit.nix
