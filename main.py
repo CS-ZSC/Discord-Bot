@@ -1,28 +1,35 @@
 import os
-import discord
-from utils import done_task, msg_add_point, bot_command
+from discord.ext import commands
+from discord import Intents
+from discord_slash import SlashCommand
 
+import utils
 
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-client = discord.Client()
+client = commands.Bot(command_prefix="/")
+slash = SlashCommand(client,sync_commands=True)
 
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
 
-
 @client.event
 async def on_message(msg):
   if (str(msg.channel).endswith('-done')):
     if (msg.content.lower().startswith("done")):
-      done_task(msg)
+      await utils.done_task(msg, announce)
       await msg.add_reaction('👏')
-  elif (str(msg.channel) == 'bot-commands'):
-    response = bot_command(msg)
-    await msg.add_reaction('👍')
-    await client.get_channel(msg.channel.id).send(response)
-  else:
-    msg_add_point(msg, 1)
-      
+  elif (not str(msg.channel).startswith('bot')):      
+  # this is dumb. but easier to handle for future use like giving user more points when he shares in core-cs or some science-related channel
+    await utils.msg_add_point(msg, announce)
+    
+
+async def announce(msg):
+  channel = client.get_channel(946152947631403058)
+  await channel.send(msg)
+  
+
+utils.load_cogs(client)
 client.run(TOKEN)
+
